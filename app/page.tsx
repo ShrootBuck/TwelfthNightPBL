@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useChat } from "ai/react";
 import { Button } from "@/components/ui/button";
-import { Loader2, ArrowLeft } from "lucide-react"; // Add ArrowLeft import
+import { Loader2, ArrowLeft } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -42,11 +42,17 @@ export default function TwelfthNightChat() {
   const [chatStarted, setChatStarted] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading } =
-    useChat({
-      api: "/api/chat",
-      body: { aiCharacter, userCharacter },
-    });
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    isLoading,
+    setMessages,
+  } = useChat({
+    api: "/api/chat",
+    body: { aiCharacter, userCharacter },
+  });
 
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -56,6 +62,7 @@ export default function TwelfthNightChat() {
 
   const startChat = () => {
     if (userCharacter && aiCharacter && userCharacter !== aiCharacter) {
+      setMessages([]); // Clear chat state
       setChatStarted(true);
     }
   };
@@ -82,7 +89,7 @@ export default function TwelfthNightChat() {
                   }
                 }}
               >
-                <SelectTrigger className="bg-zinc-700 text-white border-zinc-600">
+                <SelectTrigger className="bg-zinc-700 text-white border-zinc-600 transform transition-transform active:translate-y-1 shadow-lg active:shadow-md">
                   <SelectValue placeholder="Choose a character" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-700 text-white border-zinc-600">
@@ -99,7 +106,7 @@ export default function TwelfthNightChat() {
                 Select a character to chat with:
               </label>
               <Select onValueChange={setAiCharacter}>
-                <SelectTrigger className="bg-zinc-700 text-white border-zinc-600">
+                <SelectTrigger className="bg-zinc-700 text-white border-zinc-600 transform transition-transform active:translate-y-1 shadow-lg active:shadow-md">
                   <SelectValue placeholder="Choose a character" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-700 text-white border-zinc-600">
