@@ -40,7 +40,7 @@ export default function TwelfthNightChat() {
   const [userCharacter, setUserCharacter] = useState("");
   const [aiCharacter, setAiCharacter] = useState("");
   const [chatStarted, setChatStarted] = useState(false);
-  const scrollAreaRef = useRef(null);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat({
