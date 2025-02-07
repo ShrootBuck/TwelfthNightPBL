@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useChat } from "ai/react";
 import { Button } from "@/components/ui/button";
 import { Loader2, ArrowLeft } from "lucide-react"; // Add ArrowLeft import
@@ -40,12 +40,19 @@ export default function TwelfthNightChat() {
   const [userCharacter, setUserCharacter] = useState("");
   const [aiCharacter, setAiCharacter] = useState("");
   const [chatStarted, setChatStarted] = useState(false);
+  const scrollAreaRef = useRef(null);
 
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat({
       api: "/api/chat",
       body: { aiCharacter, userCharacter },
     });
+
+  useEffect(() => {
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+    }
+  }, [messages, isLoading]);
 
   const startChat = () => {
     if (userCharacter && aiCharacter && userCharacter !== aiCharacter) {
@@ -138,7 +145,7 @@ export default function TwelfthNightChat() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <ScrollArea className="h-[500px] pr-4">
+          <ScrollArea ref={scrollAreaRef} className="h-[500px] pr-4">
             {messages.map((m) => (
               <div
                 key={m.id}
