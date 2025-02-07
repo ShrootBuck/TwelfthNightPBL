@@ -72,9 +72,20 @@ export default function TwelfthNightChat() {
       <div className="flex items-center justify-center min-h-screen bg-zinc-900">
         <Card className="w-[350px] bg-zinc-800 border-zinc-700">
           <CardHeader>
-            <CardTitle className="text-white">
+            <CardTitle className="text-white pb-4">
               Twelfth Night Chat by Zayd Krunz
             </CardTitle>
+            <Button
+              onClick={() =>
+                window.open(
+                  "https://github.com/ShrootBuck/TwelfthNightPBL",
+                  "_blank",
+                )
+              }
+              className="bg-zinc-700 hover:bg-zinc-600 transform transition-transform active:translate-y-1 shadow-lg active:shadow-md"
+            >
+              Source Code
+            </Button>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
