@@ -16,9 +16,10 @@ export async function POST(req: Request) {
   ];
 
   const response = streamText({
-    model: openai("gpt-4o-mini"),
+    model: openai("o3-mini"),
     messages: fullMessages,
+    providerOptions: { openai: { reasoningEffort: "low" } },
   });
 
-  return response.toDataStreamResponse();
+  return response.toDataStreamResponse({ sendReasoning: false });
 }
